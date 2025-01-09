@@ -4,7 +4,7 @@ import {fluxControllers} from "../controller/paymentController"
 
 const Router = express.Router()
 
-Router.get("/tx", fluxControllers)
+Router.post("/tx", fluxControllers)
 
 
 export default Router

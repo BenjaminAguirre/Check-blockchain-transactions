@@ -1,0 +1,9 @@
+CREATE DATABASE tx_test;
+USE tx_test
+
+CREATE TABLE tx (
+    id VARCHAR(255) PRIMARY KEY,
+    amount VARCHAR(10) NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
