@@ -1,5 +1,6 @@
 import dotenv from "dotenv"
 import axios from "axios";
+import { createTx } from "../database/db";
 
 
 dotenv.config();
@@ -15,6 +16,7 @@ export const checkTransaction = async (id: string, valuetoCheck: string) => {
     const txValue = parseInt(valuetoCheck, 10);
     const txValueClient = txValue.toString()
    
+  
     
     for (let pepe = 0; pepe < txArray.length; pepe++) {
       const element = txArray[pepe]
@@ -38,10 +40,14 @@ export const checkTransaction = async (id: string, valuetoCheck: string) => {
               
               const response = {
                   status:200,
-                  txValue: txValueClient,
                   txMessage: id,
-                  txId: element.txid
+                  txValue: txValueClient,
+                  txId: element.txid,
+                  confirmations: element.confirmations
               }
+              //Hacer un if por si existe la tx, si no exite createTx, Si existe y solo verificarla
+              //Esto se deberia ejecutar cuando la tx === 1 confirmation, asi el polling no llama al error de dato duplicado en sql
+              // await createTx(id, txValueClient, element.txid)
               return response
             }
           }
